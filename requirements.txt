@@ -1,3 +1,4 @@
 autogen
 python-dotenv
 requests
+openai
