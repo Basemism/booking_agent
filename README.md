@@ -146,8 +146,7 @@ While the assistant is functional, it has some limitations that could be address
 ## 8. Testing
 
 The pytest suite covers:
-    - API error handling
-    - Input validation
-    - All intent handlers
-    - Formatting
-    - Optional fields such as `SpecialRequests`
+- API error handling
+- Input validation
+- All intent handlers
+- Formatting
