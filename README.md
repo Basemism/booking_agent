@@ -143,10 +143,19 @@ While the assistant is functional, it has some limitations that could be address
 
 - One-shot booking validation - Does not re-confirm booking details with the user once all fields are collected unless prompted. To address this, we could implement a review step before finalising bookings.
 
-## 8. Testing
+### 8. Testing
 
 The pytest suite covers:
 - API error handling
 - Input validation
 - All intent handlers
 - Formatting
+
+## Video Demo
+
+<!DOCTYPE html>
+<html>
+<body>
+  <iframe src="https://drive.google.com/file/d/14_5sh3OfAbLyhdyWTDQ4oiWCtP_rx6e4/preview" allowfullscreen="allowfullscreen"></iframe>
+</body>
+</html>
