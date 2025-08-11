@@ -14,6 +14,7 @@ def initial_state() -> Dict[str, Optional[str]]:
         "Surname": None,
         "Email": None,
         "BookingRef": None,
+        "LastBookingRef": None,
         "CancellationReasonId": None,
         "SpecialRequests": None,
         "status": "collecting",

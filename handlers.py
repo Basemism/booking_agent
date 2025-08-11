@@ -109,8 +109,14 @@ def handle_create_booking(ctx: ConversationContext) -> HandlerResult:
 
     def transform(c: ConversationContext) -> None:
         base_transform(c)
-        if not (isinstance(resp, dict) and "error" in resp):
+        # Only on success, store the latest booking ref so follow-up updates can use it.
+        if isinstance(resp, dict) and "error" not in resp:
+            last_ref = resp.get("booking_reference")
+            # reset but keep LastBookingRef available for the next turn
             c.reset()
+            c.data["LastBookingRef"] = last_ref
+
+    return (ack or "I've created your booking.", body, transform)
 
     return (ack or "I've created your booking.", body, transform)
 
@@ -204,7 +210,8 @@ def handle_update_booking(ctx: ConversationContext) -> HandlerResult:
     def transform(c: ConversationContext) -> None:
         base_transform(c)
         if not (isinstance(resp, dict) and "error" in resp):
-            c.soft_reset(preserve_keys=["BookingRef"])
+            # Keep both BookingRef and LastBookingRef for subsequent tweaks
+            c.soft_reset(preserve_keys=["BookingRef", "LastBookingRef"])
             c.history.append({"role": "assistant", "content": "I've updated your booking."})
             c.data["intent"] = INTENT_UPDATE
 

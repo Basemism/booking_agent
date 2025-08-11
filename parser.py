@@ -33,21 +33,15 @@ def update_state_with_llm(conversation_history, current_state):
 
     STRICT RULES:
     - ALWAYS preserve previously-known fields unless the user explicitly changes them.
-    - If the user provides a relative date (e.g., "tomorrow", "next Friday"),
-      convert it to an absolute YYYY-MM-DD using today's date.
-    - If the user provides time in 12-hour format (e.g., "2pm"),
-      convert it to 24-hour HH:MM:SS.
+    - If the user provides a relative date (e.g., "tomorrow", "next Friday"), convert it to an absolute YYYY-MM-DD using today's date.
+    - If the user provides time in 12-hour format (e.g., "2pm"), convert it to 24-hour HH:MM:SS.
     - Convert party size words or phrases ("four", "for 4") to an integer (4).
-    - For UPDATE flows: when the user requests a change (e.g., "move to the next day",
-      "change time to 8pm", "make it 6 people"), OVERWRITE the corresponding existing field
-      with the normalized value.
-    - In UPDATE flows, if the user says "no" or "that's all" or similar after a change,
-      mark status as 'ready' and proceed with the update, even if no new fields are provided.
     - Only ask for fields that are still missing. Do NOT re-ask for fields already present.
-    - If all required fields for the current intent are present, set "status": "ready" and
-      write a short confirmation in "next_message".
-    - If something is missing, set "status": "collecting" and ask ONE concise, helpful question
-      in "next_message".
+    - If all required fields for the current intent are present, set "status": "ready" and write a short confirmation in "next_message".
+    - If something is missing, set "status": "collecting" and ask ONE concise, helpful question in "next_message".
+    - For Cancellation flows: when the user provides a cancellation reason, it must be mapped to the appropriate CancellationReasonId. Only inquiries about the reason for cancelling not for CancellationReasonId specifically.
+    - For UPDATE flows: when the user requests a change (e.g., "move to the next day", "change time to 8pm", "make it 6 people"), OVERWRITE the corresponding existing fieldwith the normalized value.
+    - For UPDATE flows: do not prompt for information unless the user requests a change. After a change, confirm if they want to update anything else (e.g., "Would you like to change anything else?"). If the user says "no" or "that's all" or similar after a change, mark status as 'ready' and proceed with the update, even if no new fields are provided.
 
     IMPORTANT CLARIFICATION:
     - Do NOT prompt for optional fields.
@@ -56,7 +50,7 @@ def update_state_with_llm(conversation_history, current_state):
     - If all required fields are present, set "status": "ready" and in "next_message" simply confirm the details you have collected and state that you are ready to proceed, but do NOT say the action is done or checked.
     - Do NOT mention results or outcomes (e.g., "I have checked availability", "Booking is confirmed", "No slots available"). Leave that to downstream systems.
     - Your confirmation should be neutral, e.g., "I have all the details for your request to check availability for 4 people on 2026-08-20 at 12:00. I will proceed with checking availability." or "Ready to proceed with your booking request for 4 people on 2026-08-20 at 12:00."
-    - For Cancellation flows: when the user provides a cancellation reason, it must be mapped to the appropriate CancellationReasonId. Only inquiries about the reason for cancelling not for CancellationReasonId specifically.
+
 
     Intents and required fields:
       check_availability -> VisitDate, PartySize
