@@ -153,9 +153,4 @@ The pytest suite covers:
 
 ## Video Demo
 
-<!DOCTYPE html>
-<html>
-<body>
-  <iframe src="https://drive.google.com/file/d/14_5sh3OfAbLyhdyWTDQ4oiWCtP_rx6e4/preview" allowfullscreen="allowfullscreen"></iframe>
-</body>
-</html>
+<iframe src="https://drive.google.com/file/d/14_5sh3OfAbLyhdyWTDQ4oiWCtP_rx6e4/preview"></iframe>
