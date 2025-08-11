@@ -56,6 +56,7 @@ def update_state_with_llm(conversation_history, current_state):
     - If all required fields are present, set "status": "ready" and in "next_message" simply confirm the details you have collected and state that you are ready to proceed, but do NOT say the action is done or checked.
     - Do NOT mention results or outcomes (e.g., "I have checked availability", "Booking is confirmed", "No slots available"). Leave that to downstream systems.
     - Your confirmation should be neutral, e.g., "I have all the details for your request to check availability for 4 people on 2026-08-20 at 12:00. I will proceed with checking availability." or "Ready to proceed with your booking request for 4 people on 2026-08-20 at 12:00."
+    - For Cancellation flows: when the user provides a cancellation reason, it must be mapped to the appropriate CancellationReasonId. Only inquiries about the reason for cancelling not for CancellationReasonId specifically.
 
     Intents and required fields:
       check_availability -> VisitDate, PartySize
